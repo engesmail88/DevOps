@@ -1,0 +1,20 @@
+---
+ - name: This Playbook to manage docker images and container
+   hosts: localhost
+   tasks:
+     - name: Delete Container
+       command: docker rm python_app
+       ignore_errors: yes
+
+     - name: Delete Images
+       command: docker rmi app_img
+       ignore_errors: yes
+
+     - name: create Image
+       command: docker build -t app_img .
+       ignore_errors: yes
+
+     - name: Create Container
+       command: docker run -d --name python_app -p 8000:8000 app_img
+       ignore_errors: yes
+
